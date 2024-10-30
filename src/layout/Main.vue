@@ -14,7 +14,7 @@
           </div>
         </div>
         <div>
-          <img class="my_img" src="@/assets/img/left_img.jpg" />
+          <img class="my_img" src="@/assets/img/left_img.jpg" draggable="false" />
         </div>
       </div>
       <div class="content_right">
@@ -82,14 +82,14 @@
     </a-form>
     <template #footer>
       <a-button key="back" @click="visible = false">取消</a-button>
-      <a-button key="submit" type="primary" :loading="loading" @click="loginOk()">确认</a-button>
+      <a-button key="submit" type="primary" :loading="loading" @click="loginOk">确认</a-button>
     </template>
   </a-modal>
   <a-modal v-model:open="visible2" title="退出提示" centered>
     <div>确认退出吗？</div>
     <template #footer>
       <a-button key="back" @click="visible2 = false">取消</a-button>
-      <a-button key="submit" type="primary" :loading="loading" @click="logoutOk()">确认</a-button>
+      <a-button key="submit" type="primary" :loading="loading" @click="logoutOk">确认</a-button>
     </template>
   </a-modal>
 </template>
@@ -131,7 +131,6 @@ if (menu) {
 const headerData = reactive({
   img: "",
   name: "",
-  verse: ""
 });
 const loginRef = ref()
 const loginData = reactive({
@@ -151,7 +150,6 @@ async function getUser() {
       xingzuo: someInfo.xingzuo,
       img: res.data.data.img,
       sign: res.data.data.sign,
-      verse: res.data.data.verse,
       phone: res.data.data.phone,
       email: res.data.data.email
     };
@@ -164,7 +162,6 @@ async function getUser() {
     userInfo.xingzuo = info.xingzuo;
     headerData.img = userInfo.img;
     headerData.name = info.name;
-    headerData.verse = info.verse;
     menuStore.updateUserInfo(info.phone, info.email);
     window.sessionStorage.setItem("userInfo", JSON.stringify(info));
   }
@@ -236,7 +233,7 @@ function changeYibu(flag) {
   padding: 0 15%;
   background: #EEEEEE;
   padding-bottom: 50px;
-  min-height: calc(100vh - 340px);
+  min-height: calc(100vh - 280px);
 
   .contianer_content {
     font-size: 14px;
@@ -271,7 +268,8 @@ function changeYibu(flag) {
 
         .introduction {
           margin-top: 10px;
-          color: #cccccc;
+          padding: 0 15px;
+          color: #9c9c9c;
         }
 
         .myTag {

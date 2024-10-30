@@ -51,7 +51,7 @@ if(menu.mapData) {
 const flag = ref(true);
 const infoWindow = ref(null);
 const map = ref(null)
-let Bmap = window.BMapGL
+let Bmap:any = window.BMapGL
 const level = ref<number>(12);
 let myCharts2 = null;
 const myEcharts2 = ref();
@@ -181,7 +181,7 @@ function getTableData() {
 
 function getChart2Data() {
     const list = travelList;
-    let arr = [];
+    let arr:any = [];
     for (let i = 0; i < list.length; i++) {
         const index = arr.findIndex(item => item.name == list[i].city);
         if (index != -1) {
@@ -202,7 +202,7 @@ function getChart3Data() {
     for (let i = 0; i < list.length; i++) {
         arr = arr.concat(list[i].friend);
     }
-    let brr = [];
+    let brr:any = [];
     for (let i = 0; i < arr.length; i++) {
         const crr = arr[i].split("、");
         for (let j = 0; j < crr.length; j++) {

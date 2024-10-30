@@ -1,14 +1,5 @@
 <template>
     <div class="headerContainer">
-        <!-- <div class="headerInfo">
-            <div class="touxiang">
-                <img :src="prop.headerData.img" />
-            </div>
-            <div class="myInfo">
-                <div>{{ prop.headerData.verse.split("。")[0] }}</div>
-                <div>{{ prop.headerData.verse.split("。")[1] }}</div>
-            </div>
-        </div> -->
         <div class="headBg">
             <div class="head_title">
                 <div class="head_title_cn">索拉的博客</div>
@@ -54,7 +45,8 @@ const list = reactive([{
 }, {
     id: 2,
     name: "生活瞬间",
-    url: "/team/lifeMoments"
+    url: "/team/life",
+    children: []
 }, {
     id: 3,
     name: "学习记录",
@@ -74,8 +66,8 @@ const list = reactive([{
     }]
 }, {
     id: 4,
-    name: "学校生活",
-    url: "/team/schoolLife"
+    name: "算法学习",
+    url: "/team/algorithm"
 }, {
     id: 5,
     name: "规划人生",
@@ -110,6 +102,7 @@ onMounted(() => {
 </script>
 <style lang="less" scoped>
 .headerContainer {
+    height: 280px;
     position: relative;
     .headBg {
         position: relative;
@@ -135,31 +128,6 @@ onMounted(() => {
             .head_title_en {
                 font-size: 28px;
             }
-        }
-    }
-
-    .headerInfo {
-        display: flex;
-        justify-content: center;
-
-        .touxiang {
-            border-radius: 50%;
-
-            img {
-                width: 75px;
-                border-radius: 50%;
-            }
-        }
-
-        .myInfo {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #ffffff;
-            margin-left: 20px;
-            row-gap: 8px;
-            letter-spacing: 4px;
         }
     }
 

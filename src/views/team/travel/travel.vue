@@ -144,23 +144,6 @@ function showModal() {
     addData.name = addData.time = addData.img = "";
 }
 
-function beforeUpdateFile(file: any) {
-    const suffixList = ["image/png", "image/jpeg", "image/jpg"];
-    const isImg = suffixList.findIndex((item: string) => item == file.type) != -1;
-    const sizeFlag = file.size / 1024 / 1024 < 50;
-    if (!isImg) {
-        message.error('请上传正确的图片格式!');
-        handleRemove();
-
-    } else if (!sizeFlag) {
-        message.error('图片大小不能大于50MB!');
-        flag.value = !flag.value;
-        handleRemove();
-    }
-    imgType.value = isImg && sizeFlag;
-    return isImg || sizeFlag;
-}
-
 async function uploadImg(file: any) {
     fileList.value = [];
     addData.img = "";

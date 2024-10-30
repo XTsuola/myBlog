@@ -60,13 +60,23 @@ const newRouterDate: Array<RouteRecordRaw> = [
             }]
           },
           {
-            path: "lifeMoments",
+            path: "life",
+            redirect: "/team/life/list",
             meta: {
               menuType: "menu",
-              key: "lifeMoments",
+              key: "life",
               label: "生活瞬间",
             },
-            component: () => import("@/views/team/lifeMoments.vue")
+            component: () => import("@/views/team/life/index.vue"),
+            children: [{
+              path: "list",
+              meta: {
+                menuType: "menu",
+                key: "life_list",
+                label: "列表",
+              },
+              component: () => import("@/views/team/life/list.vue")
+            }]
           },
           {
             path: "learnRecord",
@@ -112,13 +122,47 @@ const newRouterDate: Array<RouteRecordRaw> = [
             }]
           },
           {
-            path: "schoolLife",
+            path: "algorithm",
+            redirect: "/team/algorithm/list",
             meta: {
               menuType: "menu",
-              key: "schoolLife",
-              label: "学校生活",
+              key: "algorithm",
+              label: "算法学习",
             },
-            component: () => import("@/views/team/schoolLife.vue")
+            component: () => import("@/views/team/algorithm/index.vue"),
+            children: [{
+              path: "list",
+              meta: {
+                menuType: "menu",
+                key: "algorithm_list",
+                label: "列表",
+              },
+              component: () => import("@/views/team/algorithm/list.vue")
+            }, {
+              path: "add",
+              meta: {
+                menuType: "menu",
+                key: "algorithm_add",
+                label: "新增",
+              },
+              component: () => import("@/views/team/algorithm/add.vue")
+            }, {
+              path: "edit",
+              meta: {
+                menuType: "menu",
+                key: "algorithm_edit",
+                label: "编辑",
+              },
+              component: () => import("@/views/team/algorithm/edit.vue")
+            }, {
+              path: "detail",
+              meta: {
+                menuType: "menu",
+                key: "algorithm_detail",
+                label: "详情",
+              },
+              component: () => import("@/views/team/algorithm/detail.vue")
+            }]
           },
           {
             path: "planLife",

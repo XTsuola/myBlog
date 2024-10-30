@@ -18,6 +18,15 @@ const routeList = [
         component: () => import("@/views/team/travel/map.vue")
     },
     {
+        path: "/team/love",
+        meta: {
+          menuType: "menu",
+          key: "love",
+          label: "我们的爱情",
+        },
+        component: () => import("@/views/team/life/love.vue")
+    },
+    {
         path: "/:pathMatch(.*)*", // 404页面
         name: "notfound",
         component: notfound

@@ -59,17 +59,10 @@
 <script lang="ts" setup>
 import { ref, reactive, onMounted } from 'vue';
 import { message } from 'ant-design-vue';
-import { getMsgList, msgAdd, msgReply, msgDelete } from '@/api/msg';
+import { getMsgList, msgAdd, msgReply, msgDelete, type MsgAddType } from '@/api/msg';
 import { useMenuStore } from '@/store/menu/menu';
 import { formatDate } from "@/utils/func";
 
-interface AddDataType {
-    id?: string
-    title: string
-    name: string
-    content: string
-    time: string
-}
 
 const menuStore = useMenuStore();
 menuStore.updateLabel("访客留言");
@@ -77,8 +70,8 @@ const nowId = ref(0);
 const visible = ref(false);
 const loading = ref(false);
 const messageRef = ref();
-const list = ref<AddDataType[]>([]);
-const addData: AddDataType = reactive({
+const list = ref<MsgAddType[]>([]);
+const addData: MsgAddType = reactive({
     title: "",
     name: "",
     content: "",
@@ -150,6 +143,9 @@ async function deleteOk() {
     const res = await msgDelete(nowId.value);
     if (res.data.code == 200) {
         visible.value = false;
+        if(current.value > 1 && (list.value.length % 3) == 1) {
+            current.value--;
+        }
         getList();
     }
     loading.value = false;

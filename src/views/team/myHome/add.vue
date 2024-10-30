@@ -33,7 +33,7 @@ const view = ref(null);
 const extensions = [];
 const addData = reactive<HomeInfoAddType>({
     title: "",
-    level: "",
+    level: undefined,
     info: ""
 });
 const options = colorList.map(item => {

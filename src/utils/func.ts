@@ -1,5 +1,5 @@
 // 时间格式化
-export function formatDate(date: string, type?: string) {
+export function formatDate(date: any, type?: string) {
     const newDate = new Date(date);
     const year = newDate.getFullYear();
     const month = (newDate.getMonth() + 1) > 9 ? (newDate.getMonth() + 1) : "0" + (newDate.getMonth() + 1);
@@ -67,10 +67,10 @@ const xingzuoList = [{
 // 计算年龄和星座
 export function getAge(date: string) {
     const list = date.split("-");
-    const newDate = new Date();
-    const nowYear = newDate.getFullYear();
-    const nowMonth = newDate.getMonth() + 1;
-    const nowDay = newDate.getDate();
+    const newDate:any = new Date();
+    const nowYear:any = newDate.getFullYear();
+    const nowMonth:any = newDate.getMonth() + 1;
+    const nowDay:any = newDate.getDate();
     const a = parseInt(nowYear) - parseInt(list[0]);
     const b = parseInt(nowMonth) - parseInt(list[1]);
     let d = 0;
@@ -98,7 +98,7 @@ export function getAge(date: string) {
     return { age: d, xingzuo: xingzuo };
 };
 
-export const colorList = [{
+export const colorList:any = [{
     level: 4,
     name: "精通",
     color: "error",
@@ -121,7 +121,7 @@ export const weekList = ["一", "二", "三", "四", "五", "六", "日"];
 export const monthList = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月",];
 
 export function getNewTravelList(list: any) {
-    let arr = [];
+    let arr:any = [];
     for(let i = 0; i < list.length; i++) {
         const index = arr.findIndex(item => item.name == list[i].name);
         if(index == -1) {

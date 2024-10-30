@@ -15,6 +15,7 @@ export interface MsgAddType {
     title: string
     time: string
     content: string
+    reply?: string
 };
 
 export function msgAdd(data: MsgAddType) {
