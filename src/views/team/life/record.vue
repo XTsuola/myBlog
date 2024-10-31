@@ -1,6 +1,6 @@
 <template>
     <div class="record">
-        <!-- <h2>时光回忆</h2> -->
+        <h2>时光回忆</h2>
         <div class="content">
             <div class="content_div" v-for="(item, index) in dataList" :key="title">
                 <div class="card">
@@ -19,37 +19,59 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { getRecordList } from "@/api/life";
 import { useRouter } from 'vue-router';
 
-document.title = "我的微博——记录时刻"
+document.title = "我的微博——记录时刻";
 const router = useRouter();
 const dataList = ref([{
     title: "合影",
     img: import.meta.env.VITE_APP_BASE_URL + "travel/3.jpg",
-    time: "2024-04-06"
+    time: "2024-04-07"
 }, {
     title: "摆拍",
     img: import.meta.env.VITE_APP_BASE_URL + "travel/4.jpg",
     time: "2024-04-06"
-}])
+}]);
 
 function goDetail(item: any) {
-    sessionStorage.setItem("recordId", item.title)
+    sessionStorage.setItem("recordData", JSON.stringify(item));
     router.push("/team/recordDetail");
 }
+
+async function getList() {
+    const res = await getRecordList();
+    if (res.data.code == 200) {
+        dataList.value = res.data.data.map((item) => {
+            return {
+                title: item.title,
+                time: item.time,
+                img: import.meta.env.VITE_APP_BASE_URL + "life/list/" + item.id + ".jpg"
+            }
+        })
+    }
+}
+
+onMounted(() => {
+    getList();
+})
 
 </script>
 <style lang="less" scoped>
 .record {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     padding: 30px 0;
     background: #EEEEEE;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+
+    h2 {
+        margin-bottom: 20px;
+    }
 
     .content {
         background-color: #ffffff;
@@ -64,11 +86,12 @@ function goDetail(item: any) {
                 height: 280px;
                 display: flex;
                 justify-content: space-between;
+                flex-direction: row;
                 margin-bottom: 10px;
 
                 .card_left {
                     height: 100%;
-                    width: 40%;
+                    min-width: 300px;
 
                     img {
                         width: 100%;
@@ -102,6 +125,20 @@ function goDetail(item: any) {
                     &:focus {
                         color: #ffffff !important;
                         background-color: #865FC1 !important;
+                    }
+                }
+
+
+            }
+
+            @media screen and (max-width: 768px) {
+                .card {
+                    width: 100%;
+                    justify-content: flex-start; 
+                    flex-direction: column;
+                    height: 480px;
+                    .card_left {
+                        min-width: calc(50vw);
                     }
                 }
             }
