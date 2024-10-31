@@ -1,14 +1,14 @@
 <template>
     <div class="planLife">
-        <img src="@/assets/img/x1.jpg" />
-        <img src="@/assets/img/x2.jpg" />
-        <img src="@/assets/img/x3.jpg" />
-        <img src="@/assets/img/x4.jpg" />
-        <img src="@/assets/img/x5.jpg" />
-        <img src="@/assets/img/x6.jpg" />
-        <img src="@/assets/img/x7.jpg" />
-        <img src="@/assets/img/x8.jpg" />
-        <img src="@/assets/img/x9.jpg" />
+        <img src="@/assets/img/plan/x1.jpg" />
+        <img src="@/assets/img/plan/x2.jpg" />
+        <img src="@/assets/img/plan/x3.jpg" />
+        <img src="@/assets/img/plan/x4.jpg" />
+        <img src="@/assets/img/plan/x5.jpg" />
+        <img src="@/assets/img/plan/x6.jpg" />
+        <img src="@/assets/img/plan/x7.jpg" />
+        <img src="@/assets/img/plan/x8.jpg" />
+        <img src="@/assets/img/plan/x9.jpg" />
     </div>
 </template>
 <script lang="ts" setup>

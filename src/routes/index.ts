@@ -27,6 +27,24 @@ const routeList = [
         component: () => import("@/views/team/life/love.vue")
     },
     {
+        path: "/team/record",
+        meta: {
+          menuType: "menu",
+          key: "record",
+          label: "记录",
+        },
+        component: () => import("@/views/team/life/record.vue")
+    },
+    {
+        path: "/team/recordDetail",
+        meta: {
+          menuType: "menu",
+          key: "recordDetail",
+          label: "记录详情",
+        },
+        component: () => import("@/views/team/life/recordDetail.vue")
+    },
+    {
         path: "/:pathMatch(.*)*", // 404页面
         name: "notfound",
         component: notfound

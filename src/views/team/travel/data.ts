@@ -219,4 +219,4 @@ export const travelList = [{
     friend: ["月色、江南、王祥、恒恒、于敏、周国庆、嘉忻、海棠"]
 }]
 
-export const dataList = [...homeList, ...travelList ]
+export const dataList = [...homeList, ...travelList ];

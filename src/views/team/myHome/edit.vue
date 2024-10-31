@@ -49,7 +49,7 @@ function handleReady(payload: any) {
 }
 
 async function getDetail() {
-    const res = await getHomeInfoDetail(myHomeId)
+    const res = await getHomeInfoDetail(myHomeId);
     if (res.data.code == 200) {
         editData.id = res.data.data.id;
         editData.title = res.data.data.title;

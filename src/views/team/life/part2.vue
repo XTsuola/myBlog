@@ -3,7 +3,7 @@
         <a-timeline class="timeLine" mode="alternate">
             <a-timeline-item v-for="item in cardList">
                 <template #dot>
-                    &#10084;&#65039;
+                    <div style="transform: scale(2);">&#10084;&#65039;</div>
                 </template>
                 <a-card class="card">
                     <template #title>
@@ -14,6 +14,7 @@
                 </a-card>
             </a-timeline-item>
         </a-timeline>
+        <div class="separator"></div>
     </div>
 </template>
 <script lang="ts" setup>
@@ -29,14 +30,14 @@ const cardList = ref([{
     time: "",
     text: "今天收到了你送的第一款皮肤，正如皮肤名字一样黄金射手座，射进了我的心里。"
 }, {
-    title: "11/11/2023",
-    time: "",
-    text: "今天我们领证了，以后就是合法夫妻了，长路漫漫，请多关照。"
+    title: "领结婚证",
+    time: "11/11/2023",
+    text: "今天我们领证了，以后就是合法夫妻了，长路漫漫，以后请多多指教。"
 }, {
-    title: "31/12/2023",
-    time: "",
+    title: "婚礼",
+    time: "31/12/2023",
     text: "今天是我们结婚的日子，是期待已久的中式婚礼，你很美，让我看到了国泰明安的感觉。"
-}])
+}]);
 
 </script>
 <style lang="less" scoped>
@@ -46,6 +47,7 @@ const cardList = ref([{
     .timeLine {
         .card {
             border: 2px solid #cccccc;
+            margin-right: 10px;
 
             .card_title {
                 padding-top: 10px;
@@ -65,5 +67,10 @@ const cardList = ref([{
         }
     }
 
+    .separator {
+        margin-top: 60px;
+        height: 52px;
+        background: url(@/assets/img/life/sep.png) no-repeat center center;
+    }
 }
 </style>

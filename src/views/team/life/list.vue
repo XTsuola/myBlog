@@ -13,6 +13,10 @@
             <div class="flower-petal petal6"></div>
             <div class="flower-petal petal7"></div>
         </button>
+        <div class="xiangce" @click="goRecord()">
+            <img src="@/assets/img/life/xiangce.png" />
+            <div class="xiangce_text">记录</div>
+        </div>
     </div>
 </template>
 <script lang="ts" setup>
@@ -23,6 +27,10 @@ const router = useRouter();
 
 function goLove() {
     router.push("/team/love");
+}
+
+function goRecord() {
+    router.push("/team/record")
 }
 
 onMounted(() => {
@@ -178,6 +186,29 @@ onMounted(() => {
     .flower-button span {
         position: relative;
         z-index: 10;
+    }
+
+    .xiangce {
+        position: absolute;
+        height: 66px;
+        width: 66px;
+        left: 150px;
+        top: 210px;
+        cursor: pointer;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+        .xiangce_text {
+            font-size: 12px;
+            color: #ffffff;
+            position: absolute;
+            top: 25px;
+            left: 21px;
+        }
+    }
+    .xiangce:hover {
+        transform: scale(1.2);
     }
 }
 </style>
