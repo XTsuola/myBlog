@@ -22,6 +22,7 @@ declare module 'vue' {
     APagination: typeof import('ant-design-vue/es')['Pagination']
     AResult: typeof import('ant-design-vue/es')['Result']
     ASegmented: typeof import('ant-design-vue/es')['Segmented']
+    ASelect: typeof import('ant-design-vue/es')['Select']
     ASlider: typeof import('ant-design-vue/es')['Slider']
     ATable: typeof import('ant-design-vue/es')['Table']
     ATag: typeof import('ant-design-vue/es')['Tag']

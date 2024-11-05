@@ -45,9 +45,11 @@ async function getList() {
     if (res.data.code == 200) {
         dataList.value = res.data.data.map((item) => {
             return {
+                id: item.id,
                 title: item.title,
                 time: item.time,
-                img: import.meta.env.VITE_APP_BASE_URL + "life/list/" + item.id + ".jpg"
+                img: import.meta.env.VITE_APP_BASE_URL + "life/list/" + item.id + ".jpg",
+                ids: item.ids
             }
         })
     }
@@ -91,7 +93,7 @@ onMounted(() => {
 
                 .card_left {
                     height: 100%;
-                    min-width: 300px;
+                    width: 32%;
 
                     img {
                         width: 100%;
@@ -100,7 +102,7 @@ onMounted(() => {
                 }
 
                 .card_right {
-                    width: 60%;
+                    width: 68%;
                     padding: 20px 20px 20px 60px;
 
                     h3 {
@@ -137,6 +139,7 @@ onMounted(() => {
                     height: 480px;
                     .card_left {
                         min-width: calc(50vw);
+                        height: auto;
                     }
                 }
             }

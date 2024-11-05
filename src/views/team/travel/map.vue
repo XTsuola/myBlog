@@ -9,7 +9,9 @@
         </div>
         <div class="content">
             <div class="content_box top10 bottom18">
-                <div class="content_box_head">游玩地点统计</div>
+                <div class="content_box_head" style="display: flex;justify-content: space-between;align-items: center;">
+                    <p>游玩地点统计</p><a-button v-permission="'admin'" @click="addFoot()">添加</a-button>
+                </div>
                 <a-table :columns="columns" :data-source="tableData" :pagination="{ pageSize: 2 }">
                     <template #bodyCell="{ column, record }">
                         <template v-if="column.key === 'name'">
@@ -32,26 +34,62 @@
                 <div class="content_box_chart" ref="myEcharts3"></div>
             </div>
         </div>
+        <a-modal v-model:open="visible" title="添加记录" centered>
+            <a-form ref="footerAddRef" style="width: 100%;" :model="addData" name="basic" :label-col="{ span: 3 }"
+                autocomplete="off">
+                <a-form-item label="地点" name="name" :rules="[{ required: true, message: '请输地点！', trigger: 'blur' }]">
+                    <a-input v-model:value="addData.name" placeholder="请输入"></a-input>
+                </a-form-item>
+                <a-form-item label="城市" name="city" :rules="[{ required: true, message: '请输城市！', trigger: 'blur' }]">
+                    <a-input v-model:value="addData.city" placeholder="请输入"></a-input>
+                </a-form-item>
+                <a-form-item label="经历" name="info" :rules="[{ required: true, message: '请输经历！', trigger: 'blur' }]">
+                    <a-input v-model:value="addData.info" placeholder="请输入"></a-input>
+                </a-form-item>
+                <a-form-item label="时间" name="time" :rules="[{ required: true, message: '请输时间！', trigger: 'blur' }]">
+                    <a-input v-model:value="addData.time" placeholder="请输入"></a-input>
+                </a-form-item>
+                <a-form-item label="同伴" name="friend" :rules="[{ required: true, message: '请输同伴！', trigger: 'blur' }]">
+                    <a-input v-model:value="addData.friend" placeholder="请输入"></a-input>
+                </a-form-item>
+                <a-form-item label="经度" name="lng" :rules="[{ required: true, message: '请输经度！', trigger: 'blur' }]">
+                    <a-input v-model:value="addData.lng" placeholder="请输入"></a-input>
+                </a-form-item>
+                <a-form-item label="纬度" name="lat" :rules="[{ required: true, message: '请输纬度！', trigger: 'blur' }]">
+                    <a-input v-model:value="addData.lat" placeholder="请输入"></a-input>
+                </a-form-item>
+            </a-form>
+            <template #footer>
+                <a-button key="back" @click="visible = false">取消</a-button>
+                <a-button key="submit" type="primary" :loading="loading" @click="addOk">确认</a-button>
+            </template>
+        </a-modal>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted, ref, nextTick } from "vue";
+import { onMounted, onUnmounted, ref, reactive, nextTick } from "vue";
 import { init } from 'echarts';
 import type { ListType } from "./data";
+import { footAdd, type FootAddType } from "@/api/travel";
+import { getTravelFootList } from '@/api/travel';
+import { getNewTravelList } from "@/utils/func";
+import { useMenuStore } from '@/store/menu/menu';
 // import { travelList, dataList } from "./data";
 
+const menuStore = useMenuStore();
 const menu = JSON.parse(window.sessionStorage.getItem("menu"));
 let travelList = [];
 let dataList = [];
-if(menu.mapData) {
+if (menu.mapData) {
     travelList = menu.mapData.travelList.reverse();
     dataList = [...menu.mapData.travelList, ...menu.mapData.homeList];
 }
+const loading = ref(false);
 const flag = ref(true);
 const infoWindow = ref(null);
 const map = ref(null)
-let Bmap:any = window.BMapGL
+let Bmap: any = window.BMapGL
 const level = ref<number>(12);
 let myCharts2 = null;
 const myEcharts2 = ref();
@@ -100,6 +138,17 @@ const newColumns = [
 const columns = ref([])
 columns.value = JSON.parse(JSON.stringify(originalColumns));
 const tableData = ref([]);
+const footerAddRef = ref();
+const visible = ref(false);
+const addData = reactive<FootAddType>({
+    name: "",
+    city: "",
+    info: "",
+    time: "",
+    friend: "",
+    lat: "",
+    lng: ""
+})
 
 function handleResize() {
     if (window.innerWidth < 1500) {
@@ -181,7 +230,7 @@ function getTableData() {
 
 function getChart2Data() {
     const list = travelList;
-    let arr:any = [];
+    let arr: any = [];
     for (let i = 0; i < list.length; i++) {
         const index = arr.findIndex(item => item.name == list[i].city);
         if (index != -1) {
@@ -202,7 +251,7 @@ function getChart3Data() {
     for (let i = 0; i < list.length; i++) {
         arr = arr.concat(list[i].friend);
     }
-    let brr:any = [];
+    let brr: any = [];
     for (let i = 0; i < arr.length; i++) {
         const crr = arr[i].split("、");
         for (let j = 0; j < crr.length; j++) {
@@ -336,6 +385,31 @@ function goPoint(record) {
     map.value.centerAndZoom(new Bmap.Point(record.lng, record.lat), 15);
 }
 
+function addFoot() {
+    visible.value = true;
+}
+
+async function addOk() {
+    loading.value = true;
+    try {
+        await footerAddRef.value?.validate();
+        const res = await footAdd(addData);
+        if(res.data.code == 201) {
+            travelFootList();
+        }
+    } catch (_) { }
+    loading.value = false;
+}
+
+async function travelFootList() {
+    const res = await getTravelFootList();
+    if (res.data.code == 200) {
+        const list = getNewTravelList(res.data.data);
+        menuStore.updateMapData(list);
+        location.reload();
+    }
+}
+
 onMounted(() => {
     drawCharts();
     nextTick(() => {
@@ -395,11 +469,12 @@ onMounted(() => {
 
             .content_box_head {
                 font-weight: bold;
-                height: 25px;
+                height: 20px;
+                margin-bottom: 10px;
             }
 
             .content_box_chart {
-                height: calc(100% - 25px);
+                height: calc(100% - 30px);
                 width: 100%;
             }
         }

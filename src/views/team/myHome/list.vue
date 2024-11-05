@@ -39,7 +39,7 @@ import { getHomeInfoList } from "@/api/home";
 import { colorList } from "@/utils/func";
 import { useRouter } from 'vue-router';
 
-// window.sessionStorage.setItem("myHomeId", "");
+const admin = JSON.parse(sessionStorage.getItem("menu") as any) ? JSON.parse(sessionStorage.getItem("menu") as any).isAdmin : 0;
 const menuStore = useMenuStore();
 menuStore.updateDetail("");
 const router = useRouter();
@@ -58,8 +58,10 @@ function add() {
 }
 
 function showDetail(item: any) {
-    router.push("/team/myHome/detail");
-    window.sessionStorage.setItem("myHomeId", item.id);
+    if (admin) {
+        router.push("/team/myHome/detail");
+        window.sessionStorage.setItem("myHomeId", item.id);
+    }
 }
 
 onMounted(() => {

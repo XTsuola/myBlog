@@ -38,3 +38,21 @@ export function getTravelFootList() {
         method: 'get'
     })
 };
+
+// 新增旅游足迹数据
+export interface FootAddType {
+    name: string
+    city: string
+    info: string
+    time: string
+    friend: string
+    lat: string
+    lng: string 
+}
+export function footAdd(data: FootAddType) {
+    return request({
+        url: "/travel/food_add",
+        method: "post",
+        data: data
+    })
+};
